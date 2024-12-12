@@ -1,0 +1,93 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 50vh;
+}
+
+/* Estilo para os inputs e selects */
+input[type="text"],
+input[type="date"],
+input[type="number"],
+select {
+    width: 300px;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+/* Estilo para os labels */
+label {
+    margin: 5px;
+    font-size: 18px;
+    text-align: left; /* Alinha o texto à esquerda */
+    width: 300px; /* Define a largura do label igual à largura do input/select */
+    display: block; /* Faz com que o label seja exibido em bloco */
+}
+
+
+button[type="submit"] {
+    width: 150px;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: #f0f0f0;
+    color: rgb(46, 46, 46);
+    font-size: 16px;
+    cursor: pointer;
+    
+}
+
+button[type="submit"]:hover {
+    background-color: #367adb;
+}
+
+
+#loading {
+    display: none;
+    width: 50px;
+    height: 50px;
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #3498db;
+    border-radius: 50%;
+    animation: spin 2s linear infinite;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.container {
+    width: 100%;
+    text-align: center; /* Centraliza os elementos dentro do container */
+}
+
+.deslogar, .voltar {
+    display: inline-block; /* Coloca os elementos lado a lado */
+    width: 50px; /* Largura dos elementos */
+    margin-top: 8px; /* Margem superior */
+    margin-right: 200px; 
+    margin-left: 200px;
+}
+
+.deslogar a, .voltar a {
+    text-decoration: none; /* Remove sublinhado dos links */
+    color: #000; /* Cor do texto */
+}
