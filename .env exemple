@@ -1,0 +1,11 @@
+#Banco Armazena de medicamentos
+DB_HOST=
+DB_USER=
+DB_NAME=
+DB_PASS=
+
+#Banco Press
+DB_HOST_PRESS=
+DB_USER_PRESS=
+DB_NAME_PRESS=
+DB_PASS_PRESS=
