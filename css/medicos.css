@@ -2,6 +2,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    background-color: linear-gradient( -0.2turn, rgb(197, 232, 238), rgb(207, 180, 233) );
 }
 
 form {
@@ -9,7 +10,7 @@ form {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 50vh;
+    height: 70vh;
 }
 
 /* Estilo para os inputs e selects */
@@ -90,4 +91,16 @@ button[type="submit"]:hover {
 .deslogar a, .voltar a {
     text-decoration: none; /* Remove sublinhado dos links */
     color: #000; /* Cor do texto */
+}
+
+table {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid;
+    text-align: center;
+    vertical-align: center;
+    width: 200px;
 }

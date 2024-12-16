@@ -7,35 +7,76 @@
 
     require("../routes/db.php");
 
-    $sql = "
-    SELECT 
-        m.id as ID,
-        m.nome AS Nome,
-        m.principio AS 'Principio_Ativo',
-        m.validade AS Validade,
-        m.retirado AS 'Retirado',
-        m.id_arm AS id_armaze,
-        m.solicitado AS Solicitante,
-        m.id_user AS User_id,
-        u.usuario AS User,
-        a.nome AS Armazenamento,
-        md.nome AS Medico
-    FROM 
-        medicamento m 
-    INNER JOIN 
-        local a ON m.id_arm = a.id 
-    LEFT JOIN
-        usuarios u ON m.id_user = u.id
-    INNER JOIN
-        medicos md ON m.solicitado = md.id
-    WHERE
-        retirado IS NOT NULL
-    ORDER BY
-        Retirado DESC
-";
+    if(isset($_GET['data1']) && isset($_GET['data2'])){
+        $usuariof = "";
+        if($_GET['user'] != 0){
+            $usuariof = "AND Id_User = ".$_GET['user'];
+        }
+        $sql = "
+        SELECT 
+            m.id as ID,
+            m.nome AS Nome,
+            m.principio AS 'Principio_Ativo',
+            m.validade AS Validade,
+            m.retirado AS 'Retirado',
+            m.id_arm AS id_armaze,
+            m.solicitado AS Solicitante,
+            m.id_user AS Id_User,
+            a.nome AS Armazenamento,
+            md.nome AS Medico
+        FROM 
+            medicamento m 
+        INNER JOIN 
+            local a ON m.id_arm = a.id 
+        INNER JOIN
+            medicos md ON m.solicitado = md.id
+        WHERE
+            retirado IS NOT NULL AND
+            retirado BETWEEN '$_GET[data1] 00:00:00' AND '$_GET[data2] 23:59:59'
+            $usuariof
+        ORDER BY
+            Retirado DESC
+    ";
+    } else {
+        $sql = "
+            SELECT 
+                m.id as ID,
+                m.nome AS Nome,
+                m.principio AS 'Principio_Ativo',
+                m.validade AS Validade,
+                m.retirado AS 'Retirado',
+                m.id_arm AS id_armaze,
+                m.solicitado AS Solicitante,
+                m.id_user AS Id_User,
+                a.nome AS Armazenamento,
+                md.nome AS Medico
+            FROM 
+                medicamento m 
+            INNER JOIN 
+                local a ON m.id_arm = a.id 
+            INNER JOIN
+                medicos md ON m.solicitado = md.id
+            WHERE
+                retirado IS NOT NULL
+            ORDER BY
+                Retirado DESC
+        ";
+    }
+    
 
     $result = $conn->query($sql);
 
+    $user_press = $conn_press->query("SELECT id,name FROM Users");
+
+    $conn->close();
+    $conn_press->close();
+    $u=0;
+    while($nome = $user_press->fetch_assoc()){
+        $u++;
+        $u_id[$u]=$nome['id'];
+        $u_nome[$u]=$nome['name'];
+    }
+    $t=$u;
 ?>
 
 <!DOCTYPE html>
@@ -56,6 +97,25 @@
         <div class="header">
             <h1>Lista de Remoções</h1>
         </div>
+
+        <form action="./lista_removidos.php" method="get">
+            <input type="date" name="data1" value="<?php if(isset($_GET['data1'])){ echo $_GET['data1']; }else{ echo date('Y-m-d', strtotime('-30 days'));}?>" required>
+            <input type="date" name="data2" value="<?php if(isset($_GET['data2'])){ echo $_GET['data2']; }else{ echo date('Y-m-d', time());}?>" required>
+            <select name="user" required>
+                <option value="0" <?php if(isset($_GET['user']) && $_GET['user'] == 0){echo "selected";}?>>Todos</option>
+                <?php
+                    for($j=1;$j<=$t;$j++){
+                        $sel="";
+                        if(isset($_GET['user']) && $_GET['user'] == $u_id[$j]){
+                            $sel = " SELECTED";
+                        }
+                        echo "<option value='$u_id[$j]' $sel>$u_nome[$j]</option>";
+                    }
+                ?>
+            </select>
+            
+            <button type="submit">Filtrar</button>
+        </form>
         <div class="wrapper">
             <div class="table">
                 <div class="row header green">
@@ -83,6 +143,16 @@
                     while($row = $result->fetch_assoc()) {
                         $data_val = DateTime::createFromFormat('Y-m-d', $row['Validade']);
                         
+                        for($i=1;$i<=$u;$i++){
+                            if($u_id[$i] == $row['Id_User']){
+                                $row['User'] = $u_nome[$i];
+                            }
+                        }
+
+                        if(!isset($row['User'])){
+                            $row['User'] = 'N/A';
+                        }
+
                         echo "
                         <div class='row'>
                             <div class='cell' data-title='Nome'>
@@ -95,7 +165,7 @@
                                 ".$row['Armazenamento']."
                             </div>
                             <div class='cell' data-title='Retirado'>
-                                ".$row['Retirado']."
+                                ".date('H:i d/m/Y', strtotime($row['Retirado']))."
                             </div>
                             <div class='cell' data-title='Solicitante'>
                                 ".$row['Medico']."

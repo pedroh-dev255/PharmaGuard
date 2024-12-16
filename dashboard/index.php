@@ -111,6 +111,7 @@
     }
 
     $conn->close();
+    $conn_press->close();
 
 ?>
 
@@ -123,6 +124,8 @@
     <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <title>PharmaGuard</title>
+    <link rel="stylesheet" href="../css/popup.css">
+    <script src="../js/js.js"></script>
     <style>
         /* Estilo para a caixa modal */
         .modal {
@@ -165,12 +168,17 @@
     </style>
 </head>
 <body>
+    <!-- POPUP -->
+    <div class="popin-notification" id="popin">
+        <p id="popin-text"></p>
+        <button onclick="closePopin()">Fechar</button>
+    </div>
     <div class="page">
         <?php
-        if(isset($_SESION['log'])){
-            echo $_SESSION['log'];
-            unset($_SESSION['log']);
-        }
+            if(isset($_SESSION['log'])){
+                echo "<script >showPopin('".$_SESSION['log']."', '".$_SESSION['log1']."');</script>";
+                unset($_SESSION['log'], $_SESSION['log1']);
+            }
         ?>
         <a href="deslogar.php"><img class="deslogar" src="../img/4400828.png" alt="deslogar"></a>
         <ol class="botoes">
@@ -182,9 +190,6 @@
             </li>
             <li>
                 <a href="./medicos.php" >Medicos</a>
-            </li>
-            <li>
-                <a href="./usuarios.php" >Usuarios</a>
             </li>
         </ol>
 
@@ -218,7 +223,10 @@
                     Editar
                 </div>
                 <div class="cell">
-                    Retirar
+                    Retirar(Un)
+                </div>
+                <div class="cell">
+                    Retirar(Todos)
                 </div>
                 </div>
                 <?php
@@ -275,17 +283,24 @@
                             <div class='cell' data-title='Armazenamento'>
                                 ".$row['Armazenamento']."
                             </div>
-                            <div class='cell' data-title='Editar' style='align-items: center;align-content: center;justify-content: center;'>
+                            <div class='cell' data-title='Editar'>
                                 <a class='remover_remedio' href='./formEditar.php?id=".$row['ID']."' onclick='openload()'>
                                     <img style='width: 30px' src='../img/5996831.png'>
                                 </a>
                             </div>
                             
-                            <div class='cell' data-title='Retirar' style='display: flex;flex-direction: column;align-items: center;align-content: center;justify-content: center;'>
+                            <div class='cell' data-title='Retirar Un'>
                                 <a class='remover_remedio' href='./remove.php?id=".$row['ID']."' onclick='openload()'>
                                     <img style='width: 30px' src='../img/botao-de-menos.png'>
                                 </a>
                             </div>
+
+                            <div class='cell' data-title='Retirar Todos'>
+                                <a style='align: center;' class='remover_remedio' href='./remove_todos.php?id=".$row['ID']."&qnt=".$row['Quantidade']."' onclick='openload()'>
+                                    <img style='width: 30px' src='../img/clean.png'>
+                                </a>
+                            </div>
+
                         </div>";
                     }
                   } else {

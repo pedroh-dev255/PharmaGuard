@@ -20,7 +20,7 @@
     }
     $lista = $conn->query("select * from medicos");
     $conn->close();
-    
+    $conn_press->close();
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -47,11 +47,8 @@
             <input type="text" name="nome" id="nome" required>
             
             <button type="submit" id ="submitBtn" >Adicionar</button>
-        </form>
-    
-        <div id="loading"></div>
-    
-        <?php
+            <br><br><br><br>
+            <?php
             if (isset($lista) && $lista->num_rows > 0) {
                 echo "<table><tr><th>ID</th><th>Name</th></tr>";
                 // output data of each row
@@ -63,6 +60,11 @@
                 echo "0 results";
               }
         ?>
+        </form>
+    
+        <div id="loading"></div>
+    
+        
     </div>
     <script>
         document.getElementById("meuFormulario").addEventListener("submit", function() {

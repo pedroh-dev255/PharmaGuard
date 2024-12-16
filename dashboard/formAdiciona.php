@@ -8,6 +8,7 @@
     $result_list = $conn->query("SELECT * FROM local");
 
     $conn->close();
+    $conn_press->close();
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">

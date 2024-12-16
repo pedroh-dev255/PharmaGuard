@@ -15,6 +15,7 @@
             header("Location: ../dashboard/formAdLocal.php");
         }
         $conn->close();
+        $conn_press->close();
     }
 
     
@@ -41,5 +42,14 @@
         
         <input type="submit" value="Adicionar">
     </form>
+
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>Local</th>
+        </tr>
+
+
+    </table>
 </body>
 </html>

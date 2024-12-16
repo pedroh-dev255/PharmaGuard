@@ -5,33 +5,57 @@
         header('Location: ../dashboard/');
     }
 
-    if(isset($_POST['senha']) && isset($_POST['user']) && $_POST['user'] != "" || $_POST['user'] != null && $_POST['senha'] != "" || $_POST['senha'] != null){
-        $email=$_POST['user'];
-        $senha=$_POST['senha'];
+    require("db.php");
+    $conn->close();
 
-        unset($_POST['user']);
-        unset($_POST['senha']);
 
-        require_once("db.php");
+    if(isset($_POST['login']) && isset($_POST['pass'])){
+        // Carrega conexão com banco de dados
+        
+        // Prepara a consulta SQL para evitar SQL Injection
+        $sql = "SELECT * FROM Users WHERE email = ?";
+        $stmt = $conn_press->prepare($sql);
+        $stmt->bind_param('s', $_POST['login']);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
-        $sql = "SELECT * FROM usuarios where usuario = '".$email."' && senha = '".$senha."'";
-        $result = $conn->query($sql);
 
+        // Verifica se o usuário foi encontrado
         if ($result->num_rows > 0) {
-            while($row = $result->fetch_assoc()) {
-                $_SESSION['id'] = $row['id'];
-                header('Location: ../dashboard/');
+            $user = $result->fetch_assoc();
+
+            // Verifica a senha usando password_verify (senha é hash no banco de dados)
+            if (password_verify($_POST['pass'], $user['passwordHash'])) {
+                // Salva os dados do usuário na sessão
+                $_SESSION['id'] = $user['id'];
+                //nivel de acesso   
+                $_SESSION['nivel'] = $user['profile'];
+                    
+                // Redireciona para o dashboard
+                header("Location: ../dashboard/");
+                $_SESSION['log'] = "Bem vindo ". ucfirst(trim(strtolower($user['name'])));
+                $_SESSION['log1'] = "success"; // success , warning, error
+
+                exit();
+            } else {
+                header("Location: ../");
+                $_SESSION['log'] = "Senha incorreta";
+                $_SESSION['log1'] = "error"; // success , warning, error
+                exit();
             }
         } else {
-            $_SESSION['log'] = "Nome ou senha incorretos";
-            header('Location: ../');
+            $_SESSION['log'] = "Usuário não encontrado";
+            $_SESSION['log1'] = "error"; // success , warning, error
+            header("Location: ../");
+            exit();
         }
-        $conn->close();
-
-    }else{
+        $conn_press->close();
         
-        $_SESSION['log'] = "Post invalido";
-        header('Location: ../');
+    }else{
+        header("Location: ../");
+        $_SESSION['log'] = "Post Invalido";
+        $_SESSION['log1'] = "error"; // success , warning, error
+        exit();
     }
 
 

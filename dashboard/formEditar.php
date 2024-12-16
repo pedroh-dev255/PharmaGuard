@@ -56,6 +56,7 @@
     
 
     $conn->close();
+    $conn_press->close();
 ?>
 
 <!DOCTYPE html>
