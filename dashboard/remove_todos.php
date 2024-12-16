@@ -129,6 +129,10 @@
         </form>
 
         <div id="loading"></div>
+        <footer style="display: flex; justify-content: center;">
+            <vr>
+            <b><p class="text-center text-muted">©<?php echo date('Y'); ?> <a href="https://phsolucoes.tech">PH Soluções</a></p></b>
+        </footer>
     </div>
     <script>
         document.getElementById("meuFormulario").addEventListener("submit", function() {

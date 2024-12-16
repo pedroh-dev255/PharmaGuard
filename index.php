@@ -42,6 +42,10 @@
             <!--<a href="./">Esqueci minha senha</a>-->
             <input type="submit" value="Acessar" class="btn" />
         </form>
+        <footer style="display: flex; justify-content: center; color: white; text-decoration: none;">
+            <vr>
+            <b><p class="text-center text-muted">©<?php echo date('Y'); ?> <a href="https://phsolucoes.tech">PH Soluções</a></p></b>
+        </footer>
     </div>
     
 </body>

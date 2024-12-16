@@ -116,6 +116,8 @@
             
             <button type="submit">Filtrar</button>
         </form>
+        <br>
+        <button onclick="window.print()">Imprimir</button>
         <div class="wrapper">
             <div class="table">
                 <div class="row header green">
@@ -183,6 +185,10 @@
                 
             </div>  
         </div>
+        <footer style="display: flex; justify-content: center;">
+            <vr>
+            <b><p class="text-center text-muted">©<?php echo date('Y'); ?> <a href="https://phsolucoes.tech">PH Soluções</a></p></b>
+        </footer>
     </div>
 </body>
 </html>
