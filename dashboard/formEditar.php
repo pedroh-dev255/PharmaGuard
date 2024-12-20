@@ -259,7 +259,7 @@
         </script>
         <footer style="display: flex; justify-content: center;">
             <vr>
-            <b><p class="text-center text-muted">©<?php echo date('Y'); ?> <a href="https://phsolucoes.tech">PH Soluções</a></p></b>
+            <b><p class="text-center text-muted">©<?php echo date('Y'); ?> <a href="https://www.phsolucoes.site/">PH Soluções</a></p></b>
         </footer>
     </div>
 </body>
