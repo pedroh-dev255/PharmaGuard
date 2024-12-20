@@ -69,9 +69,9 @@
     <title>Editar</title>
     <style>
         
-         .wrapper {
+  .wrapper {
     margin: 0 auto;
-    padding-top: 20px;
+    padding-top: 10px;
     max-width: 80%;
   }
   
@@ -159,7 +159,7 @@
         
     </style>
 </head>
-<body>
+<body style="color: #023047; background-color:rgb(203, 253, 207);">
     <div class="page">
         <div class="container">
             <a href="./"><img class="voltar" src="../img/12202024.png" alt="voltar"></a>

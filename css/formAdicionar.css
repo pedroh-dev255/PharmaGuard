@@ -9,7 +9,7 @@ form {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    height: 80vh;
 }
 
 /* Estilo para os inputs e selects */
@@ -74,10 +74,32 @@ button[type="submit"]:hover {
     100% { transform: rotate(360deg); }
 }
 
+.container {
+    width: 100%;
+    text-align: center; /* Centraliza os elementos dentro do container */
+}
+
+.deslogar, .voltar {
+    display: inline-block; /* Coloca os elementos lado a lado */
+    width: 50px; /* Largura dos elementos */
+    margin-top: 8px; /* Margem superior */
+    margin-right: 200px; 
+    margin-left: 200px;
+}
+
+.deslogar a, .voltar a {
+    text-decoration: none; /* Remove sublinhado dos links */
+    color: #000; /* Cor do texto */
+}
 
 table {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
     border: 1px solid;
     text-align: center;
     vertical-align: center;
-
+    width: 200px;
 }

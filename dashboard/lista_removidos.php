@@ -12,6 +12,11 @@
         if($_GET['user'] != 0){
             $usuariof = "AND Id_User = ".$_GET['user'];
         }
+
+        $medicof = "";
+        if($_GET['medico'] != 0){
+            $medicof = "AND md.id = ".$_GET['medico'];
+        }
         $sql = "
         SELECT 
             m.id as ID,
@@ -33,7 +38,7 @@
         WHERE
             retirado IS NOT NULL AND
             retirado BETWEEN '$_GET[data1] 00:00:00' AND '$_GET[data2] 23:59:59'
-            $usuariof
+            $usuariof $medicof
         ORDER BY
             Retirado DESC
     ";
@@ -65,6 +70,7 @@
     
 
     $result = $conn->query($sql);
+    $result_med = $conn->query("SELECT * FROM medicos");
 
     $user_press = $conn_press->query("SELECT id,name FROM Users");
 
@@ -88,7 +94,7 @@
     <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon">
     <title>Lista de Remoções</title>
 </head>
-<body>
+<body style="color: #023047; background-color:rgb(203, 253, 249);">
     <div class="page">
         <div class="container">
             <a href="./"><img class="voltar" src="../img/12202024.png" alt="voltar"></a>
@@ -113,9 +119,23 @@
                     }
                 ?>
             </select>
+
+            <select name="medico" required>
+                <option value="0" <?php if(isset($_GET['medico']) && $_GET['medico'] == 0){echo "selected";}?>>Todos</option>
+                <?php
+                    while($row_med = $result_med->fetch_assoc()){
+                        $sel="";
+                        if(isset($_GET['medico']) && $_GET['medico'] == $row_med['id']){
+                            $sel = " SELECTED";
+                        }
+                        echo "<option value='$row_med[id]' $sel>$row_med[nome]</option>";
+                    }
+                ?>
+            </select>
             
             <button type="submit">Filtrar</button>
         </form>
+        <a href="./lista_removidos.php"><button alt="limpar filtro">X</button></a>
         <br>
         <button onclick="window.print()">Imprimir</button>
         <div class="wrapper">

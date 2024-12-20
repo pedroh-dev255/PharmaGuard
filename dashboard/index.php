@@ -167,7 +167,7 @@
         }
     </style>
 </head>
-<body>
+<body style="color: #023047; background-color:rgb(214, 203, 253);">
     <!-- POPUP -->
     <div class="popin-notification" id="popin">
         <p id="popin-text"></p>
@@ -311,7 +311,7 @@
                 
             </div>  
         </div>
-        <br><br><br>
+        <br><br>
         <div id="modalOverlay"></div>
 
         <!-- Caixa modal -->
@@ -323,7 +323,6 @@
                 <iframe id="iframeMedicamento" frameborder="0" width="90%" height="100%"></iframe>
             </div>
         </div>
-        <br><br><br>
         <footer style="display: flex; justify-content: center;">
             <vr>
             <b><p class="text-center text-muted">©<?php echo date('Y'); ?> <a href="https://phsolucoes.tech">PH Soluções</a></p></b>

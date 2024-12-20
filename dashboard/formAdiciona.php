@@ -18,13 +18,20 @@
     <title>Formulário de Adição de Medicamento</title>
     <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="../css/formAdicionar.css">
+    <link rel="stylesheet" href="../css/popup.css">
+    <script src="../js/js.js"></script>
 </head>
 <body>
+    <!-- POPUP -->
+    <div class="popin-notification" id="popin">
+        <p id="popin-text"></p>
+        <button onclick="closePopin()">Fechar</button>
+    </div>
     <?php
-    if(isset($_SESION['log'])){
-        echo $_SESSION['log'];
-        unset($_SESSION['log']);
-    }
+        if(isset($_SESSION['log'])){
+            echo "<script >showPopin('".$_SESSION['log']."', '".$_SESSION['log1']."');</script>";
+            unset($_SESSION['log'], $_SESSION['log1']);
+        }
     ?>
     <form id="meuFormulario" action="../routes/formAdicionar.php" method="post">
         <label for="nome">Nome:</label>

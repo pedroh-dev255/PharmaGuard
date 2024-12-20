@@ -31,7 +31,7 @@
     <link rel="stylesheet" href="../css/medicos.css">
     <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon">
 </head>
-<body>
+<body style="color: #023047; background-color:rgb(252, 253, 203);">
     <?php
     if(isset($_SESION['log'])){
         echo $_SESSION['log'];
