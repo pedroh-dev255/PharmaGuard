@@ -1,8 +1,15 @@
 <?php
     session_start();
     
-    if(!isset($_SESSION['id'])){
+    if(!isset($_SESSION['id']) && !isset($_SESSION['nivel'])){
         header("Location: ../index.php");
+    }
+
+    if($_SESSION['nivel'] != 'admin'){
+        $_SESSION['log'] = "Sem acesso!";
+        $_SESSION['log1'] = "warning"; // success , warning, error
+        header("Location: ./");
+        exit();
     }
 
     require("../routes/db.php");

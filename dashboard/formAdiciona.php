@@ -47,7 +47,11 @@
         <input type="number" name="quant" id="quant" required>
 
         <label for="arm">Armazenamento:</label>
-        <a href="./formAdLocal.php">Adicionar local</a>
+        <?php
+            if($_SESSION['nivel'] == 'admin'){
+                echo '<a href="./formAdLocal.php">Adicionar local</a>';
+            }
+        ?>
         <select id="arm" name="arm" required>
             <option value=""></option>
             <?php

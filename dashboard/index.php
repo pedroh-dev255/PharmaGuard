@@ -185,12 +185,18 @@
             <li>
                 <a href="#" id="openModal" onclick="openIframe('formAdiciona.php')">Adicionar Medicamento</a>
             </li>
+            <?php
+            if($_SESSION['nivel'] == 'admin'){
+             echo "
             <li>
-                <a href="./lista_removidos.php" >Relatorio de remoções</a>
+                <a href='./lista_removidos.php' >Relatorio de remoções</a>
             </li>
             <li>
-                <a href="./medicos.php" >Medicos</a>
+                <a href='./medicos.php' >Medicos</a>
             </li>
+             ";
+            }?>
+            
         </ol>
 
         <form action="./" method="post">

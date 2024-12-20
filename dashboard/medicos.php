@@ -1,9 +1,17 @@
 <?php
     session_start();
     
-    if(!isset($_SESSION['id'])){
+    if(!isset($_SESSION['id']) && !isset($_SESSION['nivel'])){
         header("Location: ../index.php");
     }
+
+    if($_SESSION['nivel'] != 'admin'){
+        $_SESSION['log'] = "Sem acesso!";
+        $_SESSION['log1'] = "warning"; // success , warning, error
+        header("Location: ./");
+        exit();
+    }
+
     require_once("../routes/db.php");
     if(isset($_POST['nome']) && $_POST['nome'] != ""){
         
@@ -30,14 +38,21 @@
     <title>Formulário de Adição de Medicos</title>
     <link rel="stylesheet" href="../css/medicos.css">
     <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../css/popup.css">
+    <script src="../js/js.js"></script>
 </head>
 <body style="color: #023047; background-color:rgb(252, 253, 203);">
+    <!-- POPUP -->
+    <div class="popin-notification" id="popin">
+        <p id="popin-text"></p>
+        <button onclick="closePopin()">Fechar</button>
+    </div>
     <?php
-    if(isset($_SESION['log'])){
-        echo $_SESSION['log'];
-        unset($_SESSION['log']);
-    }
-    ?>
+            if(isset($_SESSION['log'])){
+                echo "<script >showPopin('".$_SESSION['log']."', '".$_SESSION['log1']."');</script>";
+                unset($_SESSION['log'], $_SESSION['log1']);
+            }
+        ?>
     <div class="container">
         <a href="./"><img class="voltar" src="../img/12202024.png" alt="voltar"></a>
         <a href="deslogar.php"><img class="deslogar" src="../img/4400828.png" alt="deslogar"></a>
